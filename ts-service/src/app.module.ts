@@ -8,10 +8,12 @@ import { HealthModule } from './health/health.module';
 import { LlmModule } from './llm/llm.module';
 import { QueueModule } from './queue/queue.module';
 import { SampleModule } from './sample/sample.module';
+import { CandidatesModule } from './candidates/candidates.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ isGlobal: true }),
+    ConfigModule.forRoot({ isGlobal: true,   envFilePath: '.env',
+ }),
     TypeOrmModule.forRootAsync({
       inject: [ConfigService],
       useFactory: (configService: ConfigService) =>
@@ -22,6 +24,7 @@ import { SampleModule } from './sample/sample.module';
     QueueModule,
     LlmModule,
     SampleModule,
+    CandidatesModule
   ],
 })
 export class AppModule {}

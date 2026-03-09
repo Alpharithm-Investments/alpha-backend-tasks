@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS briefing_points;
