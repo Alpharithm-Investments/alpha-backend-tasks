@@ -227,6 +227,3 @@ npm run test:e2e -- --debug
 
 # Linting
 npm run lint
-
-## NOTE 
-My solution is inside the 'feat/complete_solution' branch
