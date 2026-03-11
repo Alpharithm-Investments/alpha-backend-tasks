@@ -7,6 +7,7 @@ export interface EnqueuedJob<TPayload = unknown> {
   name: string;
   payload: TPayload;
   enqueuedAt: string;
+  processed: boolean;
 }
 
 @Injectable()
@@ -19,6 +20,7 @@ export class QueueService {
       name,
       payload,
       enqueuedAt: new Date().toISOString(),
+      processed: false,
     };
 
     this.jobs.push(job);
@@ -26,6 +28,18 @@ export class QueueService {
   }
 
   getQueuedJobs(): readonly EnqueuedJob[] {
+    return this.jobs.filter((j) => !j.processed);
+  }
+
+  markProcessed(jobId: string): void {
+    const job = this.jobs.find((j) => j.id === jobId);
+    if (job) {
+      job.processed = true;
+    }
+  }
+
+  /** Returns all jobs (including processed) — useful for testing. */
+  getAllJobs(): readonly EnqueuedJob[] {
     return this.jobs;
   }
 }
