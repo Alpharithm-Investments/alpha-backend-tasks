@@ -8,6 +8,7 @@
 # Env files
 .env
 .env.*
+./Python-service/venv
 !.env.example
 
 # Python
@@ -21,12 +22,15 @@ __pycache__/
 .venv/
 venv/
 python-service/.venv/
+python-service/venv/
+python-service/.env/
 python-service/.pytest_cache/
 python-service/.coverage
 
 # Node / TypeScript
 node_modules/
 ts-service/node_modules/
+ts-service/.env
 ts-service/dist/
 ts-service/coverage/
 *.tsbuildinfo
