@@ -1,15 +1,18 @@
-import { randomUUID } from 'crypto';
+import { randomUUID } from "crypto";
 
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Injectable } from "@nestjs/common";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Repository } from "typeorm";
 
-import { CandidateDocument } from '../entities/candidate-document.entity';
-import { CandidateSummary, SummaryStatus } from '../entities/candidate-summary.entity';
-import { SampleCandidate } from '../entities/sample-candidate.entity';
-import { SampleWorkspace } from '../entities/sample-workspace.entity';
-import { AuthUser } from '../auth/auth.types';
-import { CreateCandidateDocumentDto } from './dto/create-candidate-document.dto';
+import { CandidateDocument } from "../entities/candidate-document.entity";
+import {
+  CandidateSummary,
+  SummaryStatus,
+} from "../entities/candidate-summary.entity";
+import { SampleCandidate } from "../entities/sample-candidate.entity";
+import { SampleWorkspace } from "../entities/sample-workspace.entity";
+import { AuthUser } from "../auth/auth.types";
+import { CreateCandidateDocumentDto } from "./dto/create-candidate-document.dto";
 
 @Injectable()
 export class DocumentsService {
@@ -38,7 +41,7 @@ export class DocumentsService {
     });
 
     if (!candidate) {
-      throw new Error('Candidate not found or access denied');
+      throw new Error("Candidate not found or access denied");
     }
 
     const document = this.documentRepository.create({
@@ -67,12 +70,12 @@ export class DocumentsService {
     });
 
     if (!candidate) {
-      throw new Error('Candidate not found or access denied');
+      throw new Error("Candidate not found or access denied");
     }
 
     return this.documentRepository.find({
       where: { candidateId },
-      order: { uploadedAt: 'DESC' },
+      order: { uploadedAt: "DESC" },
     });
   }
 
@@ -85,7 +88,7 @@ export class DocumentsService {
   ): Promise<CandidateDocument | null> {
     const document = await this.documentRepository.findOne({
       where: { id: documentId },
-      relations: ['candidate'],
+      relations: ["candidate"],
     });
 
     if (!document) {
@@ -94,7 +97,7 @@ export class DocumentsService {
 
     // verify workspace access
     if (document.candidate.workspaceId !== user.workspaceId) {
-      throw new Error('Access denied');
+      throw new Error("Access denied");
     }
 
     return document;
@@ -114,7 +117,7 @@ export class DocumentsService {
     });
 
     if (!candidate) {
-      throw new Error('Candidate not found or access denied');
+      throw new Error("Candidate not found or access denied");
     }
 
     const where: any = { candidateId };
@@ -124,17 +127,20 @@ export class DocumentsService {
 
     return this.summaryRepository.find({
       where,
-      order: { createdAt: 'DESC' },
+      order: { createdAt: "DESC" },
     });
   }
 
   /**
    * Get a single summary.
    */
-  async getSummary(user: AuthUser, summaryId: string): Promise<CandidateSummary | null> {
+  async getSummary(
+    user: AuthUser,
+    summaryId: string,
+  ): Promise<CandidateSummary | null> {
     const summary = await this.summaryRepository.findOne({
       where: { id: summaryId },
-      relations: ['candidate'],
+      relations: ["candidate"],
     });
 
     if (!summary) {
@@ -143,7 +149,7 @@ export class DocumentsService {
 
     // verify workspace access
     if (summary.candidate.workspaceId !== user.workspaceId) {
-      throw new Error('Access denied');
+      throw new Error("Access denied");
     }
 
     return summary;
@@ -184,7 +190,7 @@ export class DocumentsService {
     });
 
     if (!updated) {
-      throw new Error('Summary not found after update');
+      throw new Error("Summary not found after update");
     }
 
     return updated;

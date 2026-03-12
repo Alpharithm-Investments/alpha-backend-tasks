@@ -1,17 +1,21 @@
-import { Injectable, Logger, OnApplicationBootstrap } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Inject } from '@nestjs/common';
-import { Repository } from 'typeorm';
+import { Injectable, Logger, OnApplicationBootstrap } from "@nestjs/common";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Inject } from "@nestjs/common";
+import { Repository } from "typeorm";
 
-import { CandidateDocument } from '../entities/candidate-document.entity';
-import { CandidateSummary, RecommendedDecision, SummaryStatus } from '../entities/candidate-summary.entity';
+import { CandidateDocument } from "../entities/candidate-document.entity";
+import {
+  CandidateSummary,
+  RecommendedDecision,
+  SummaryStatus,
+} from "../entities/candidate-summary.entity";
 import {
   CandidateSummaryResult,
   SummarizationProvider,
   SUMMARIZATION_PROVIDER,
-} from '../llm/summarization-provider.interface';
-import { QueueService, EnqueuedJob } from './queue.service';
-import { GENERATE_SUMMARY_JOB, GenerateSummaryJobPayload } from './queue.types';
+} from "../llm/summarization-provider.interface";
+import { QueueService, EnqueuedJob } from "./queue.service";
+import { GENERATE_SUMMARY_JOB, GenerateSummaryJobPayload } from "./queue.types";
 
 @Injectable()
 export class QueueWorkerService implements OnApplicationBootstrap {
@@ -42,7 +46,7 @@ export class QueueWorkerService implements OnApplicationBootstrap {
     }
 
     this.isRunning = true;
-    this.logger.log('QueueWorker started');
+    this.logger.log("QueueWorker started");
 
     // poll queue every 2 seconds
     setInterval(() => {
@@ -68,12 +72,16 @@ export class QueueWorkerService implements OnApplicationBootstrap {
     }
   }
 
-  private async processJob(job: EnqueuedJob<GenerateSummaryJobPayload>): Promise<void> {
+  private async processJob(
+    job: EnqueuedJob<GenerateSummaryJobPayload>,
+  ): Promise<void> {
     const { summaryId, candidateId } = job.payload;
 
     try {
       // fetch summary
-      const summary = await this.summaryRepository.findOne({ where: { id: summaryId } });
+      const summary = await this.summaryRepository.findOne({
+        where: { id: summaryId },
+      });
       if (!summary) {
         this.logger.warn(`Summary ${summaryId} not found`);
         return;
@@ -88,7 +96,7 @@ export class QueueWorkerService implements OnApplicationBootstrap {
         // no documents to summarize
         await this.summaryRepository.update(summaryId, {
           status: SummaryStatus.FAILED,
-          errorMessage: 'No documents found for candidate',
+          errorMessage: "No documents found for candidate",
           completedAt: new Date(),
         });
         return;
@@ -108,8 +116,8 @@ export class QueueWorkerService implements OnApplicationBootstrap {
         concerns: JSON.stringify(result.concerns),
         summary: result.summary,
         recommendedDecision: result.recommendedDecision as RecommendedDecision,
-        provider: 'mock', // will be set by actual provider
-        promptVersion: 'v1',
+        provider: "mock", // will be set by actual provider
+        promptVersion: "v1",
         completedAt: new Date(),
       });
 
@@ -119,7 +127,7 @@ export class QueueWorkerService implements OnApplicationBootstrap {
       // mark summary as failed
       await this.summaryRepository.update(summaryId, {
         status: SummaryStatus.FAILED,
-        errorMessage: error instanceof Error ? error.message : 'Unknown error',
+        errorMessage: error instanceof Error ? error.message : "Unknown error",
         completedAt: new Date(),
       });
     }

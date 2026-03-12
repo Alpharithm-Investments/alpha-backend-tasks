@@ -16,7 +16,12 @@ export const getTypeOrmOptions = (
 ): TypeOrmModuleOptions & DataSourceOptions => ({
   type: "postgres",
   url: databaseUrl,
-  entities: [SampleWorkspace, SampleCandidate, CandidateDocument, CandidateSummary],
+  entities: [
+    SampleWorkspace,
+    SampleCandidate,
+    CandidateDocument,
+    CandidateSummary,
+  ],
   migrations: [
     InitialStarterEntities1710000000000,
     AddCandidateDocumentsAndSummaries1710000001000,
