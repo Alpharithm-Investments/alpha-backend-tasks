@@ -71,10 +71,10 @@ export class CandidateSummary {
   @Column({ name: "error_message", type: "text", nullable: true })
   errorMessage!: string | null;
 
-  @CreateDateColumn({ name: "created_at", type: "timestamptz" })
+  @CreateDateColumn({ name: "created_at", type: "datetime" })
   createdAt!: Date;
 
-  @Column({ name: "completed_at", type: "timestamptz", nullable: true })
+  @Column({ name: "completed_at", type: "datetime", nullable: true })
   completedAt!: Date | null;
 
   @ManyToOne(() => SampleCandidate, {

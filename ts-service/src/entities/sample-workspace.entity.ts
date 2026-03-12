@@ -16,7 +16,7 @@ export class SampleWorkspace {
   @Column({ type: 'varchar', length: 120 })
   name!: string;
 
-  @CreateDateColumn({ name: 'created_at', type: 'timestamptz' })
+  @CreateDateColumn({ name: 'created_at', type: 'datetime' })
   createdAt!: Date;
 
   @OneToMany(() => SampleCandidate, (candidate) => candidate.workspace)

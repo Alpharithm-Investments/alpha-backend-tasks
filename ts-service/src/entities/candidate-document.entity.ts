@@ -29,10 +29,10 @@ export class CandidateDocument {
   @Column({ name: "raw_text", type: "text" })
   rawText!: string;
 
-  @Column({ name: "uploaded_at", type: "timestamptz" })
+  @Column({ name: "uploaded_at", type: "datetime" })
   uploadedAt!: Date;
 
-  @CreateDateColumn({ name: "created_at", type: "timestamptz" })
+  @CreateDateColumn({ name: "created_at", type: "datetime" })
   createdAt!: Date;
 
   @ManyToOne(() => SampleCandidate, {

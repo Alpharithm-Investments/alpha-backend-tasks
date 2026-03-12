@@ -7,7 +7,6 @@ import { SUMMARIZATION_PROVIDER } from "./summarization-provider.interface";
 @Module({
   providers: [
     FakeSummarizationProvider,
-    GeminiSummarizationProvider,
     {
       provide: SUMMARIZATION_PROVIDER,
       useFactory: () => {
@@ -26,7 +25,6 @@ import { SUMMARIZATION_PROVIDER } from "./summarization-provider.interface";
   exports: [
     SUMMARIZATION_PROVIDER,
     FakeSummarizationProvider,
-    GeminiSummarizationProvider,
   ],
 })
 export class LlmModule {}
