@@ -5,6 +5,7 @@ import { CandidateDocument } from '../entities/candidate-document.entity';
 import { CandidateSummary } from '../entities/candidate-summary.entity';
 import { SampleCandidate } from '../entities/sample-candidate.entity';
 import { SampleWorkspace } from '../entities/sample-workspace.entity';
+import { QueueModule } from '../queue/queue.module';
 import { DocumentsController } from './documents.controller';
 import { DocumentsService } from './documents.service';
 
@@ -16,6 +17,7 @@ import { DocumentsService } from './documents.service';
       CandidateDocument,
       CandidateSummary,
     ]),
+    QueueModule,
   ],
   controllers: [DocumentsController],
   providers: [DocumentsService],

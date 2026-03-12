@@ -28,4 +28,11 @@ export class QueueService {
   getQueuedJobs(): readonly EnqueuedJob[] {
     return this.jobs;
   }
+
+  removeJob(jobId: string): void {
+    const index = this.jobs.findIndex((j) => j.id === jobId);
+    if (index >= 0) {
+      this.jobs.splice(index, 1);
+    }
+  }
 }

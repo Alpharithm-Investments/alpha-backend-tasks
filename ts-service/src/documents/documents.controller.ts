@@ -15,11 +15,16 @@ import { FakeAuthGuard } from '../auth/fake-auth.guard';
 import { CreateCandidateDocumentDto } from './dto/create-candidate-document.dto';
 import { ListCandidateSummariesQueryDto } from './dto/list-summaries-query.dto';
 import { DocumentsService } from './documents.service';
+import { QueueService } from '../queue/queue.service';
+import { GENERATE_SUMMARY_JOB } from '../queue/queue.types';
 
 @Controller('candidates/:candidateId')
 @UseGuards(FakeAuthGuard)
 export class DocumentsController {
-  constructor(private readonly documentsService: DocumentsService) {}
+  constructor(
+    private readonly documentsService: DocumentsService,
+    private readonly queueService: QueueService,
+  ) {}
 
   @Post('documents')
   async uploadDocument(
@@ -61,7 +66,13 @@ export class DocumentsController {
     @CurrentUser() user: AuthUser,
     @Param('candidateId') candidateId: string,
   ) {
-    // create pending summary; queue processing comes later in step 6
-    return this.documentsService.createPendingSummary(candidateId);
+    // verify candidate exists
+    const summary = await this.documentsService.createPendingSummary(candidateId);
+    // enqueue job for async processing
+    this.queueService.enqueue(GENERATE_SUMMARY_JOB, {
+      summaryId: summary.id,
+      candidateId,
+    });
+    return summary;
   }
 }
