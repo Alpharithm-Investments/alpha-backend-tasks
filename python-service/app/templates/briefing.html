@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Briefing for {{ company_name }} ({{ ticker }})</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 2rem;
+        color: #1f2937;
+      }
+      main {
+        max-width: 800px;
+      }
+      .section {
+        margin-top: 1.5rem;
+      }
+      .section h2 {
+        border-bottom: 2px solid #d1d5db;
+        padding-bottom: 0.25rem;
+      }
+      .metrics table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      .metrics th,
+      .metrics td {
+        border: 1px solid #d1d5db;
+        padding: 0.5rem;
+        text-align: left;
+      }
+      footer {
+        margin-top: 2rem;
+        font-size: 0.875rem;
+        color: #6b7280;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Briefing: {{ company_name }} ({{ ticker }})</h1>
+      <div class="section">
+        <h2>Executive Summary</h2>
+        <p>{{ summary }}</p>
+      </div>
+      <div class="section">
+        <h2>Key Points</h2>
+        <ul>
+          {% for point in key_points %}
+          <li>{{ point }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="section">
+        <h2>Risks</h2>
+        <ul>
+          {% for risk in risks %}
+          <li>{{ risk }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="section metrics">
+        <h2>Metrics</h2>
+        {% if metrics %}
+        <table>
+          <thead>
+            <tr><th>Name</th><th>Value</th></tr>
+          </thead>
+          <tbody>
+            {% for m in metrics %}
+            <tr><td>{{ m.name }}</td><td>{{ m.value }}</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        {% else %}
+        <p>No metrics provided.</p>
+        {% endif %}
+      </div>
+      <div class="section">
+        <h2>Recommendation</h2>
+        <p>{{ recommendation }}</p>
+      </div>
+    </main>
+    <footer>Generated at: {{ generated_at }}</footer>
+  </body>
+</html>

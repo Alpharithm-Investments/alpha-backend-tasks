@@ -1,7 +1,10 @@
 from datetime import datetime, timezone
 from pathlib import Path
+from typing import Any, Dict
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape
+
+from app.models.briefing import Briefing
 
 _TEMPLATE_DIR = Path(__file__).resolve().parents[1] / "templates"
 
@@ -22,3 +25,22 @@ class ReportFormatter:
     @staticmethod
     def generated_timestamp() -> str:
         return datetime.now(timezone.utc).isoformat()
+
+    # --- briefing-specific helpers ---
+    def briefing_to_view_model(self, briefing: Briefing) -> Dict[str, Any]:
+        # transform ORM briefing into primitive dict; sorting/formatting may expand
+        return {
+            "id": briefing.id,
+            "company_name": briefing.company_name,
+            "ticker": briefing.ticker,
+            "summary": briefing.summary,
+            "recommendation": briefing.recommendation,
+            "key_points": [kp.text for kp in briefing.key_points],
+            "risks": [r.text for r in briefing.risks],
+            "metrics": [{"name": m.name, "value": m.value} for m in briefing.metrics],
+            "generated_at": self.generated_timestamp(),
+        }
+
+    def render_briefing(self, view: Dict[str, Any]) -> str:
+        template = self._env.get_template("briefing.html")
+        return template.render(**view)
