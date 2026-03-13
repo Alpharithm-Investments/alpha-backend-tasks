@@ -7,12 +7,14 @@ A comprehensive backend engineering assessment implementing a two-service archit
 **TalentFlow** consists of two microservices working in concert:
 
 ### FastAPI Service (`python-service/`)
+
 - Handles briefing generation and report formatting
 - SQLAlchemy ORM with PostgreSQL
 - Jinja2 templating for HTML reports
 - RESTful API with pytest test suite
 
 ### NestJS Service (`ts-service/`)
+
 - Document intake and candidate management
 - Asynchronous summary generation with background workers
 - TypeORM with type-safe entities
@@ -38,6 +40,7 @@ docker-compose up -d
 ```
 
 This starts a PostgreSQL 16 container on `localhost:5432` with credentials:
+
 - User: `assessment_user`
 - Password: `assessment_pass`
 - Database: `assessment_db`
@@ -90,6 +93,7 @@ NestJS server runs on `http://localhost:3000`
 ### FastAPI Briefing API
 
 #### Create Briefing
+
 ```
 POST /briefings
 Content-Type: application/json
@@ -110,11 +114,13 @@ Content-Type: application/json
 ```
 
 #### Get Briefing
+
 ```
 GET /briefings/{id}
 ```
 
 #### Generate & Render Report
+
 ```
 POST /briefings/{id}/generate    # Returns JSON view model
 GET /briefings/{id}/html          # Returns styled HTML report
@@ -123,6 +129,7 @@ GET /briefings/{id}/html          # Returns styled HTML report
 ### NestJS Document & Summary API
 
 #### Create Candidate
+
 ```
 POST /sample/candidates
 Headers: x-user-id, x-workspace-id
@@ -133,6 +140,7 @@ Headers: x-user-id, x-workspace-id
 ```
 
 #### Upload Document
+
 ```
 POST /candidates/{candidateId}/documents
 Headers: x-user-id, x-workspace-id
@@ -145,13 +153,16 @@ Headers: x-user-id, x-workspace-id
 ```
 
 #### Generate Summary (Async)
+
 ```
 POST /candidates/{candidateId}/summaries/generate
 Headers: x-user-id, x-workspace-id
 ```
+
 Returns immediately with status `pending`. Background worker processes every 2 seconds.
 
 #### Check Summary Status
+
 ```
 GET /candidates/{candidateId}/summaries/{summaryId}
 Headers: x-user-id, x-workspace-id
@@ -173,6 +184,7 @@ x-workspace-id: <workspace-identifier>
 ### Database Schema
 
 #### FastAPI Service
+
 - `sample_items` — Sample data for testing
 - `briefings` — Briefing records with relationships
 - `briefing_key_points` — Key points per briefing
@@ -180,6 +192,7 @@ x-workspace-id: <workspace-identifier>
 - `briefing_metrics` — Evaluation metrics (with unique name constraint per briefing)
 
 #### NestJS Service
+
 - `sample_workspaces` — Workspace isolation
 - `sample_candidates` — Candidates within workspaces
 - `candidate_documents` — Uploaded documents
@@ -213,6 +226,7 @@ x-workspace-id: <workspace-identifier>
 ## Testing
 
 ### Unit Tests
+
 ```bash
 # FastAPI
 cd python-service && pytest
@@ -222,12 +236,14 @@ cd ts-service && npm test
 ```
 
 ### Integration Tests (e2e)
+
 ```bash
 # NestJS full workflow
 cd ts-service && npm run test:e2e
 ```
 
 Tests include:
+
 - CRUD operations with validation
 - Workspace-scoped access control
 - Access denial scenarios
@@ -238,11 +254,13 @@ Tests include:
 ## Environment Variables
 
 ### FastAPI (.env)
+
 ```
 DATABASE_URL=postgresql://assessment_user:assessment_pass@localhost:5432/assessment_db
 ```
 
 ### NestJS (.env)
+
 ```
 DATABASE_URL=postgresql://assessment_user:assessment_pass@localhost:5432/assessment_db
 GEMINI_API_KEY=<optional-for-real-provider>
@@ -288,16 +306,19 @@ alpha-backend-tasks/
 ## Troubleshooting
 
 ### Database Connection Errors
+
 - Verify PostgreSQL is running: `docker ps | grep postgres`
 - Check connection string matches your environment
 - Run migrations: `npm run migration:run` (NestJS) or `python -m app.db.run_migrations` (FastAPI)
 
 ### Async Summary Not Completing
+
 - Check NestJS server logs for `QueueWorker started` message
 - Verify documents exist for the candidate: `GET /candidates/{id}/documents`
 - Worker processes every 2 seconds — wait 3-5 seconds and poll the GET endpoint
 
 ### Port Conflicts
+
 - FastAPI: Change port in uvicorn command if 8000 is taken
 - NestJS: Ensure 3000 is free or update `src/main.ts`
 
@@ -312,15 +333,16 @@ alpha-backend-tasks/
 ## Implementation Summary
 
 This assessment demonstrates:
-- ✅ Two-service microservice architecture
-- ✅ Database schema design with migrations
-- ✅ ORM best practices (SQLAlchemy, TypeORM)
-- ✅ RESTful API design with proper status codes
-- ✅ Asynchronous job processing with worker pattern
-- ✅ Workspace-scoped access control
-- ✅ Provider abstraction (Gemini + Fake)
-- ✅ Comprehensive testing (unit, integration, e2e)
-- ✅ Error handling and validation
-- ✅ Clean architecture and separation of concerns
+
+- Two-service microservice architecture
+- Database schema design with migrations
+- ORM best practices (SQLAlchemy, TypeORM)
+- RESTful API design with proper status codes
+- Asynchronous job processing with worker pattern
+- Workspace-scoped access control
+- Provider abstraction (Gemini + Fake)
+- Comprehensive testing (unit, integration, e2e)
+- Error handling and validation
+- Clean architecture and separation of concerns
 
 For detailed design decisions and potential improvements, see [NOTES.md](NOTES.md).
