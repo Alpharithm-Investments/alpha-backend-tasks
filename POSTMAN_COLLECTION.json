@@ -1,0 +1,743 @@
+{
+  "info": {
+    "name": "TalentFlow Backend Services",
+    "description": "Complete API collection for FastAPI and NestJS microservices",
+    "version": "1.0.0",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "FastAPI Service - Health & Sample",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8000/health",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["health"]
+            },
+            "description": "Check FastAPI service health status. No authentication required."
+          },
+          "response": []
+        },
+        {
+          "name": "Create Sample Item",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Sample Item 1\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8000/sample-items",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["sample-items"]
+            },
+            "description": "Create a new sample item in FastAPI service"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Sample Items",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8000/sample-items",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["sample-items"]
+            },
+            "description": "Retrieve all sample items"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "FastAPI Service - Briefings",
+      "item": [
+        {
+          "name": "Create Briefing",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Leadership Evaluation\",\n  \"keyPoints\": [\n    {\n      \"title\": \"Technical Skills\",\n      \"description\": \"Strong in system design and architecture\"\n    },\n    {\n      \"title\": \"Communication\",\n      \"description\": \"Clear communicator with team coordination experience\"\n    }\n  ],\n  \"risks\": [\n    {\n      \"title\": \"Limited Experience\",\n      \"description\": \"First time in executive role\"\n    }\n  ],\n  \"metrics\": [\n    {\n      \"name\": \"Years Experience\",\n      \"value\": 8\n    },\n    {\n      \"name\": \"Team Size Led\",\n      \"value\": 5\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8000/briefings",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["briefings"]
+            },
+            "description": "Create a new briefing with key points, risks, and metrics"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Briefing",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8000/briefings/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["briefings", "1"]
+            },
+            "description": "Retrieve a specific briefing by ID. Replace 1 with actual briefing ID."
+          },
+          "response": []
+        },
+        {
+          "name": "Generate Briefing Report (JSON)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "http://localhost:8000/briefings/1/generate",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["briefings", "1", "generate"]
+            },
+            "description": "Generate a formatted JSON report for a briefing. Replace 1 with actual briefing ID."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Briefing Report (HTML)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8000/briefings/1/html",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["briefings", "1", "html"]
+            },
+            "description": "Retrieve an HTML-rendered briefing report. Replace 1 with actual briefing ID."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "NestJS Service - Health",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/health",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["health"]
+            },
+            "description": "Check NestJS service health status. No authentication required."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "NestJS Service - Candidates & Sample",
+      "item": [
+        {
+          "name": "Create Candidate",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-user-id",
+                "value": "user123"
+              },
+              {
+                "key": "x-workspace-id",
+                "value": "workspace-001"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fullName\": \"Alice Johnson\",\n  \"email\": \"alice@example.com\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/sample/candidates",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["sample", "candidates"]
+            },
+            "description": "Create a new candidate. Workspace is auto-created if needed. Requires authentication headers."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Candidates",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-user-id",
+                "value": "user123"
+              },
+              {
+                "key": "x-workspace-id",
+                "value": "workspace-001"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/sample/candidates",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["sample", "candidates"]
+            },
+            "description": "Retrieve all candidates in user's workspace"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Candidate by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-user-id",
+                "value": "user123"
+              },
+              {
+                "key": "x-workspace-id",
+                "value": "workspace-001"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/sample/candidates/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["sample", "candidates", "1"]
+            },
+            "description": "Retrieve a specific candidate by ID. Replace 1 with actual candidate ID."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "NestJS Service - Documents",
+      "item": [
+        {
+          "name": "Upload Document",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-user-id",
+                "value": "user123"
+              },
+              {
+                "key": "x-workspace-id",
+                "value": "workspace-001"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"documentType\": \"resume\",\n  \"fileName\": \"alice_resume.pdf\",\n  \"storageKey\": \"s3://bucket/alice_resume.pdf\",\n  \"rawText\": \"Alice Johnson\\nExperienced Software Engineer with 8 years in backend development. Strong in system design, microservices, and database optimization. Led teams of 3-5 engineers.\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/candidates/1/documents",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["candidates", "1", "documents"]
+            },
+            "description": "Upload a document for a candidate. Replace 1 with actual candidate ID. Requires authentication headers."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Documents for Candidate",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-user-id",
+                "value": "user123"
+              },
+              {
+                "key": "x-workspace-id",
+                "value": "workspace-001"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/candidates/1/documents",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["candidates", "1", "documents"]
+            },
+            "description": "Retrieve all documents for a candidate. Replace 1 with actual candidate ID."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "NestJS Service - Summaries (Async)",
+      "item": [
+        {
+          "name": "Generate Summary (Async)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-user-id",
+                "value": "user123"
+              },
+              {
+                "key": "x-workspace-id",
+                "value": "workspace-001"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "http://localhost:3000/candidates/1/summaries/generate",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["candidates", "1", "summaries", "generate"]
+            },
+            "description": "Request summary generation for a candidate (async). Returns immediately with status 'pending'. Worker processes every 2 seconds. Replace 1 with actual candidate ID."
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Summaries for Candidate",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-user-id",
+                "value": "user123"
+              },
+              {
+                "key": "x-workspace-id",
+                "value": "workspace-001"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/candidates/1/summaries",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["candidates", "1", "summaries"]
+            },
+            "description": "Retrieve all summaries for a candidate. Replace 1 with actual candidate ID."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Summary Status",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-user-id",
+                "value": "user123"
+              },
+              {
+                "key": "x-workspace-id",
+                "value": "workspace-001"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/candidates/1/summaries/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["candidates", "1", "summaries", "1"]
+            },
+            "description": "Poll summary status. When status is 'pending', the background worker is still processing. When 'completed', the response includes score, strengths, concerns, recommendation. Replace 1 with actual IDs."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "NestJS Service - Access Control Tests",
+      "item": [
+        {
+          "name": "Create Candidate (Workspace A)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-user-id",
+                "value": "user-a"
+              },
+              {
+                "key": "x-workspace-id",
+                "value": "workspace-a"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fullName\": \"Bob Smith\",\n  \"email\": \"bob@example.com\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/sample/candidates",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["sample", "candidates"]
+            },
+            "description": "Create a candidate in workspace-a. Save the returned ID."
+          },
+          "response": []
+        },
+        {
+          "name": "Try to Access Workspace A Candidate from Workspace B",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-user-id",
+                "value": "user-b"
+              },
+              {
+                "key": "x-workspace-id",
+                "value": "workspace-b"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/sample/candidates/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["sample", "candidates", "1"]
+            },
+            "description": "Attempt to access a candidate from workspace-a using workspace-b credentials. Should return 404 (access denied)."
+          },
+          "response": []
+        },
+        {
+          "name": "Upload Document to Candidate (Workspace A)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-user-id",
+                "value": "user-a"
+              },
+              {
+                "key": "x-workspace-id",
+                "value": "workspace-a"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"documentType\": \"cover_letter\",\n  \"fileName\": \"bob_cover_letter.pdf\",\n  \"storageKey\": \"s3://bucket/bob_cover_letter.pdf\",\n  \"rawText\": \"Dear Hiring Manager, I am interested in the senior engineer position...\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/candidates/1/documents",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["candidates", "1", "documents"]
+            },
+            "description": "Upload document for workspace-a candidate. Replace 1 with actual candidate ID from workspace-a."
+          },
+          "response": []
+        },
+        {
+          "name": "Try to Upload Document from Different Workspace",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-user-id",
+                "value": "user-b"
+              },
+              {
+                "key": "x-workspace-id",
+                "value": "workspace-b"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"documentType\": \"resume\",\n  \"fileName\": \"malicious.pdf\",\n  \"storageKey\": \"s3://bucket/malicious.pdf\",\n  \"rawText\": \"Hacker content\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/candidates/1/documents",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["candidates", "1", "documents"]
+            },
+            "description": "Attempt to upload document for workspace-a candidate using workspace-b credentials. Should return 404 (access denied). Replace 1 with workspace-a candidate ID."
+          },
+          "response": []
+        },
+        {
+          "name": "Try to Generate Summary from Different Workspace",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-user-id",
+                "value": "user-b"
+              },
+              {
+                "key": "x-workspace-id",
+                "value": "workspace-b"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "http://localhost:3000/candidates/1/summaries/generate",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["candidates", "1", "summaries", "generate"]
+            },
+            "description": "Attempt to request summary for workspace-a candidate using workspace-b credentials. Should return 404 (access denied). Replace 1 with workspace-a candidate ID."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Full Workflow - Happy Path",
+      "item": [
+        {
+          "name": "Step 1: Create Candidate",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-user-id",
+                "value": "workflow-user"
+              },
+              {
+                "key": "x-workspace-id",
+                "value": "workflow-workspace"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fullName\": \"Charlie Davis\",\n  \"email\": \"charlie@example.com\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/sample/candidates",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["sample", "candidates"]
+            },
+            "description": "Step 1: Create a new candidate. Save the returned candidateId."
+          },
+          "response": []
+        },
+        {
+          "name": "Step 2: Upload Resume Document",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-user-id",
+                "value": "workflow-user"
+              },
+              {
+                "key": "x-workspace-id",
+                "value": "workflow-workspace"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"documentType\": \"resume\",\n  \"fileName\": \"charlie_resume.pdf\",\n  \"storageKey\": \"s3://bucket/charlie_resume.pdf\",\n  \"rawText\": \"Charlie Davis - Senior Software Engineer with 10 years experience. Expertise: Python, TypeScript, System Design, Microservices, Cloud Architecture. Led engineering team of 8 people. Strong track record of delivering high-impact projects.\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/candidates/1/documents",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["candidates", "1", "documents"]
+            },
+            "description": "Step 2: Upload a resume document. Replace 1 with candidateId from Step 1."
+          },
+          "response": []
+        },
+        {
+          "name": "Step 3: Upload Cover Letter Document",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-user-id",
+                "value": "workflow-user"
+              },
+              {
+                "key": "x-workspace-id",
+                "value": "workflow-workspace"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"documentType\": \"cover_letter\",\n  \"fileName\": \"charlie_cover_letter.pdf\",\n  \"storageKey\": \"s3://bucket/charlie_cover_letter.pdf\",\n  \"rawText\": \"Dear Hiring Manager, I am excited to apply for the Lead Engineer position. With my 10 years of experience and track record of building scalable systems, I am confident I can drive your team's technical excellence.\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/candidates/1/documents",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["candidates", "1", "documents"]
+            },
+            "description": "Step 3: Upload a cover letter document. Replace 1 with candidateId from Step 1."
+          },
+          "response": []
+        },
+        {
+          "name": "Step 4: Request Summary Generation (Async)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-user-id",
+                "value": "workflow-user"
+              },
+              {
+                "key": "x-workspace-id",
+                "value": "workflow-workspace"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "http://localhost:3000/candidates/1/summaries/generate",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["candidates", "1", "summaries", "generate"]
+            },
+            "description": "Step 4: Request summary generation. Returns immediately with status 'pending'. Save the returned summaryId. Replace 1 with candidateId from Step 1."
+          },
+          "response": []
+        },
+        {
+          "name": "Step 5: Poll Summary Status (Wait 3-5 seconds first)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-user-id",
+                "value": "workflow-user"
+              },
+              {
+                "key": "x-workspace-id",
+                "value": "workflow-workspace"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/candidates/1/summaries/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["candidates", "1", "summaries", "1"]
+            },
+            "description": "Step 5: Poll summary status. First, wait 3-5 seconds for the background worker to process. If status is still 'pending', wait a bit longer. When status is 'completed', you'll see score, strengths, concerns, recommendation. Replace IDs with values from previous steps."
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

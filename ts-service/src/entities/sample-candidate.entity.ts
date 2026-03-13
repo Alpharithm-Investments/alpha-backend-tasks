@@ -23,7 +23,7 @@ export class SampleCandidate {
   @Column({ type: 'varchar', length: 160, nullable: true })
   email!: string | null;
 
-  @CreateDateColumn({ name: 'created_at', type: 'timestamptz' })
+  @CreateDateColumn({ name: 'created_at', type: 'datetime' })
   createdAt!: Date;
 
   @ManyToOne(() => SampleWorkspace, (workspace) => workspace.candidates, {
